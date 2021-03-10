@@ -114,6 +114,7 @@ export abstract class FailsafeTask<TResult> {
             try {
                 console.info(`Fetching replica info from ${serverAddress}`);
                 const res: DatabaseProto.Database.Get.Res = await new Promise((resolve, reject) => {
+                    console.info("FailsafeTask.fetchDatabaseReplicas");
                     this._client.graknClusterRPC(serverAddress).database_get(new DatabaseProto.Database.Get.Req().setName(this._database), (err, res) => {
                         if (err) reject(new GraknClientError(err));
                         else resolve(res);

@@ -39,6 +39,7 @@ export class DatabaseRPC implements GraknClient.Database {
         if (!this._name) throw new GraknClientError(ErrorMessage.Client.MISSING_DB_NAME.message());
         const req = new DatabaseProto.Database.Delete.Req().setName(this._name);
         return new Promise((resolve, reject) => {
+            console.info("DatabaseRPC.delete");
             this._grpcClient.database_delete(req, (err) => {
                 if (err) reject(err);
                 else resolve();

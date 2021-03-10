@@ -111,6 +111,7 @@ export class TransactionRPC implements GraknClient.Transaction {
         if (this._isOpen) {
             this._isOpen = false;
             this._collectors.clearWithError(new ErrorResponse(new GraknClientError(ErrorMessage.Client.TRANSACTION_CLOSED)));
+            console.info("TransactionRPC.close()");
             this._stream.end();
         }
     }
@@ -120,6 +121,7 @@ export class TransactionRPC implements GraknClient.Transaction {
         const requestId = uuidv4();
         request.setId(requestId);
         this._collectors.put(requestId, responseCollector);
+        console.info("TransactionRPC.execute(): " + request);
         this._stream.write(request);
         return responseCollector.take().then(transformResponse);
     }
@@ -135,9 +137,11 @@ export class TransactionRPC implements GraknClient.Transaction {
     }
 
     private openTransactionStream() {
+        console.info("TransactionRPC.openTransactionStream");
         this._stream = this._grpcClient.transaction();
 
         this._stream.on("data", (res) => {
+            console.info("TransactionRPC.on(data): " + res);
             const requestId = res.getId();
             const collector = this._collectors.get(requestId);
             if (!collector) throw new GraknClientError(ErrorMessage.Client.UNKNOWN_REQUEST_ID.message(requestId));
@@ -145,11 +149,13 @@ export class TransactionRPC implements GraknClient.Transaction {
         });
 
         this._stream.on("error", (err) => {
+            console.info("TransactionRPC.on(error): " + err);
             this._collectors.clearWithError(new ErrorResponse(err));
             this.close();
         });
 
         this._stream.on("end", () => {
+            console.info("TransactionRPC.on(end)");
             this.close();
         });
         // TODO: look into _stream.on(status) + any other events

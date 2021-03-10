@@ -50,6 +50,7 @@ export class SessionRPC implements GraknClient.Session {
         this._options = options;
         this._isOpen = true;
         const res = await new Promise<SessionProto.Session.Open.Res>((resolve, reject) => {
+            console.info("SessionRPC.open");
             this._grpcClient.session_open(openReq, (err, res) => {
                 if (err) reject(new GraknClientError(err));
                 else resolve(res);
@@ -83,6 +84,7 @@ export class SessionRPC implements GraknClient.Session {
             clearTimeout(this._pulse);
             const req = new SessionProto.Session.Close.Req().setSessionId(this._id);
             await new Promise<void>(resolve => {
+                console.info("SessionRPC.close");
                 this._grpcClient.session_close(req, () => {
                     resolve();
                 });
@@ -101,6 +103,7 @@ export class SessionRPC implements GraknClient.Session {
     private pulse(): void {
         if (!this._isOpen) return;
         const pulse = new SessionProto.Session.Pulse.Req().setSessionId(this._id);
+        console.info("SessionRPC.pulse");
         this._grpcClient.session_pulse(pulse, (err, res) => {
             if (err || !res.getAlive()) this._isOpen = false;
             else this._pulse = setTimeout(() => this.pulse(), 5000);

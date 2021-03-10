@@ -33,6 +33,7 @@ export class DatabaseManagerRPC implements GraknClient.DatabaseManager {
         if (!name) throw new GraknClientError(ErrorMessage.Client.MISSING_DB_NAME);
         const req = new DatabaseProto.Database.Contains.Req().setName(name);
         return new Promise((resolve, reject) => {
+            console.info("DatabaseManagerRPC.contains");
             this._grpcClient.database_contains(req, (err, res) => {
                 if (err) reject(new GraknClientError(err));
                 else resolve(res.getContains());
@@ -44,6 +45,7 @@ export class DatabaseManagerRPC implements GraknClient.DatabaseManager {
         if (!name) throw new GraknClientError(ErrorMessage.Client.MISSING_DB_NAME);
         const req = new DatabaseProto.Database.Create.Req().setName(name);
         return new Promise((resolve, reject) => {
+            console.info("DatabaseManagerRPC.create");
             this._grpcClient.database_create(req, (err) => {
                 if (err) reject(new GraknClientError(err));
                 else resolve();
@@ -59,6 +61,7 @@ export class DatabaseManagerRPC implements GraknClient.DatabaseManager {
     all(): Promise<DatabaseRPC[]> {
         const allRequest = new DatabaseProto.Database.All.Req();
         return new Promise((resolve, reject) => {
+            console.info("DatabaseManagerRPC.all");
             this._grpcClient.database_all(allRequest, (err, res) => {
                 if (err) reject(new GraknClientError(err));
                 else resolve(res.getNamesList().map(name => new DatabaseRPC(this._grpcClient, name)));

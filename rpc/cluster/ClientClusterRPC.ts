@@ -123,6 +123,7 @@ export class ClientClusterRPC implements GraknClientCluster {
                 console.info(`Fetching list of cluster servers from ${address}...`);
                 const grpcClusterClient = new GraknClusterGrpc(address, ChannelCredentials.createInsecure());
                 const res = await new Promise<ClusterProto.Cluster.Servers.Res>((resolve, reject) => {
+                    console.info("ClientClusterRPC.fetchClusterServers");
                     grpcClusterClient.cluster_servers(new ClusterProto.Cluster.Servers.Req(), (err, res) => {
                         if (err) reject(new GraknClientError(err));
                         else resolve(res);

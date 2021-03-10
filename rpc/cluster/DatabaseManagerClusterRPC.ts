@@ -57,6 +57,7 @@ export class DatabaseManagerClusterRPC implements GraknClient.DatabaseManagerClu
         for (const address of Object.keys(this._databaseManagers)) {
             try {
                 const res: DatabaseProto.Database.Get.Res = await new Promise((resolve, reject) => {
+                    console.info("DatabaseManagerClusterRPC.get");
                     this._client.graknClusterRPC(address).database_get(new DatabaseProto.Database.Get.Req().setName(name), (err, res) => {
                         if (err) reject(new GraknClientError(err));
                         else resolve(res);
@@ -75,6 +76,7 @@ export class DatabaseManagerClusterRPC implements GraknClient.DatabaseManagerClu
         for (const address of Object.keys(this._databaseManagers)) {
             try {
                 const res: DatabaseProto.Database.All.Res = await new Promise((resolve, reject) => {
+                    console.info("DatabaseManagerClusterRPC.all");
                     this._client.graknClusterRPC(address).database_all(new DatabaseProto.Database.All.Req(), (err, res) => {
                         if (err) reject(new GraknClientError(err));
                         else resolve(res);
