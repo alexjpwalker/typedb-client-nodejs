@@ -232,7 +232,7 @@ class ErrorResponse extends Response {
     }
 
     read(): TransactionProto.Transaction.Res {
-        throw this._error;
+        throw new GraknClientError(this._error);
     }
 
     toString(): string {
