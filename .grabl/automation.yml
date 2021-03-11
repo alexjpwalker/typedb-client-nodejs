@@ -46,6 +46,7 @@ build:
         npm install
         npm run lint
     test-cluster-failover-1:
+      machine: 4-core-8-gb
       image: graknlabs-ubuntu-20.04
       command: |
         export ARTIFACT_USERNAME=$REPO_GRAKN_USERNAME
@@ -57,6 +58,7 @@ build:
         ./test/common/stop-cluster-servers.sh
         exit $TEST_SUCCESS
     test-cluster-failover-2:
+      machine: 4-core-8-gb
       image: graknlabs-ubuntu-20.04
       command: |
         export ARTIFACT_USERNAME=$REPO_GRAKN_USERNAME
@@ -68,6 +70,7 @@ build:
         ./test/common/stop-cluster-servers.sh
         exit $TEST_SUCCESS
     test-cluster-failover-3:
+      machine: 4-core-8-gb
       image: graknlabs-ubuntu-20.04
       command: |
         export ARTIFACT_USERNAME=$REPO_GRAKN_USERNAME
@@ -79,6 +82,7 @@ build:
         ./test/common/stop-cluster-servers.sh
         exit $TEST_SUCCESS
     test-cluster-failover-4:
+      machine: 4-core-8-gb
       image: graknlabs-ubuntu-20.04
       command: |
         export ARTIFACT_USERNAME=$REPO_GRAKN_USERNAME
@@ -90,6 +94,7 @@ build:
         ./test/common/stop-cluster-servers.sh
         exit $TEST_SUCCESS
     test-cluster-failover-5:
+      machine: 4-core-8-gb
       image: graknlabs-ubuntu-20.04
       command: |
         export ARTIFACT_USERNAME=$REPO_GRAKN_USERNAME
@@ -101,6 +106,7 @@ build:
         ./test/common/stop-cluster-servers.sh
         exit $TEST_SUCCESS
     test-cluster-failover-6:
+      machine: 4-core-8-gb
       image: graknlabs-ubuntu-20.04
       command: |
         export ARTIFACT_USERNAME=$REPO_GRAKN_USERNAME

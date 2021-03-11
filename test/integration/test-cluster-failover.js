@@ -63,7 +63,7 @@ async function run() {
             console.info(`Primary replica is hosted by server with PID ${primaryReplicaServerPID}`);
             spawnSync("kill", ["-9", primaryReplicaServerPID]);
             console.info("Primary replica stopped successfully.");
-            await new Promise(resolve => setTimeout(resolve, 18));
+            await new Promise(resolve => setTimeout(resolve, 1000));
             session = await client.session("grakn", SessionType.SCHEMA);
             tx = await session.transaction(TransactionType.READ);
             person = await tx.concepts().putEntityType("person");
@@ -72,7 +72,7 @@ async function run() {
             const idx = primaryReplica.address().externalPort().toString()[0];
             spawn(`./${idx}/grakn`, ["server", "--data", "data", "--address", `127.0.0.1:${idx}1729:${idx}1730`,
                 "--peer", "127.0.0.1:11729:11730", "--peer", "127.0.0.1:21729:21730", "--peer", "127.0.0.1:31729:31730"]);
-            await new Promise(resolve => setTimeout(resolve, 5000));
+            await new Promise(resolve => setTimeout(resolve, 10000));
         }
         console.info("SUCCESS - completed 10 iterations");
         client.close();
