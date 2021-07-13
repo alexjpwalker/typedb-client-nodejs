@@ -41,7 +41,7 @@ load("@npm//@bazel/typescript:index.bzl", "ts_project")
 genrule(
     name = "client-nodejs-targz",
     outs = ["client-nodejs.tar.gz"],
-    cmd = "npx tsc; tar -cf $(@D)/client-nodejs.tar.gz dist;",
+    cmd = "echo $$PATH; which npx; npx tsc; tar -cf $(@D)/client-nodejs.tar.gz dist;",
     tools = [
         "//:client-nodejs-ts",
         "//:package.json",
