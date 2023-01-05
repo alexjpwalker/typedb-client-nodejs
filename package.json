@@ -24,10 +24,10 @@
     "compile-tests": "tsc --build test/tsconfig.json"
   },
   "dependencies": {
-    "@grpc/grpc-js": "1.5.0",
-    "google-protobuf": "3.19.3",
+    "@grpc/grpc-js": "^1.5.0",
+    "google-protobuf": "^3.19.3",
     "typedb-protocol": "2.10.0",
-    "uuid": "8.3.2"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@bazel/typescript": "2.3.1",
